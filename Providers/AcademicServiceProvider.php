@@ -3,7 +3,6 @@
 namespace Modules\Academic\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
 
 class AcademicServiceProvider extends ServiceProvider
 {
