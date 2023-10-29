@@ -3,6 +3,7 @@
 namespace Modules\Academic\Console;
 
 use Illuminate\Console\Command;
+use Modules\Academic\Entities\Level;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
@@ -13,7 +14,7 @@ class SetupLevels extends Command
      *
      * @var string
      */
-    protected $name = 'academic:setup-lavels';
+    protected $name = 'academic:setup-levels';
 
     /**
      * The console command description.
@@ -41,6 +42,46 @@ class SetupLevels extends Command
     {
       $teamId = $this->argument('teamId');
       $levels = config('academic.levels');
+      $storedCycles = [];
+
+      foreach ($levels as $order => $level) {
+        $levelSaved = Level::create([
+          "team_id" => $teamId,
+          "user_id" => 0,
+          "order" => $order,
+          "name" => $level["name"],
+          "label" => $level["label"] ?? ucfirst($level["name"]),
+          "is_active" => $level["is_active"]
+        ]);
+
+        if (isset($level["cycles"])) {
+          foreach ($level["cycles"] as $cycle) {
+            $cycleSaved = $levelSaved->cycles()->create([
+              "team_id" => $teamId,
+              "user_id" => 0,
+              "order" => $order,
+              "name" => $cycle,
+              "label" => ucfirst($cycle),
+            ]);
+
+            $storedCycles[$cycleSaved->name] = $cycleSaved->id;
+          }
+        }
+
+        if (isset($level["grades"])) {
+          foreach ($level["grades"] as $grade) {
+            $levelSaved->grades()->create([
+              "team_id" => $teamId,
+              "user_id" => 0,
+              "cycle_id" => $storedCycles[$grade["cycle"]],
+              "order" => $grade["order"] ?? $order,
+              "name" => $grade["name"],
+              "label" => $grade["label"] ?? ucfirst($grade["name"]),
+            ]);
+          }
+        }
+
+      }
     }
 
     /**

@@ -13,14 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ac_level', function (Blueprint $table) {
+        Schema::create('ac_cycles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('team_id');
             $table->foreignId('user_id');
+            $table->foreignId('level_id');
             $table->string('name');
+            $table->string('label');
             $table->integer('order');
-            $table->text('description');
-            $table->boolean('is_active')->default(1);
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

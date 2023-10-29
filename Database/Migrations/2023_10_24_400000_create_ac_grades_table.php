@@ -17,9 +17,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('team_id');
             $table->foreignId('user_id');
+            $table->foreignId('cycle_id')->nullable();
+            $table->foreignId('level_id');
             $table->string('name');
-            $table->integer('number');
-            $table->text('description');
+            $table->string('label');
+            $table->integer('order');
+            $table->text('description')->nullable();
             $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
