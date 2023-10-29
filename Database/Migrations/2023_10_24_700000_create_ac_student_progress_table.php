@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ac_admissions', function (Blueprint $table) {
+        Schema::create('ac_student_progress', function (Blueprint $table) {
             $table->id();
             $table->foreignId('team_id');
             $table->foreignId('user_id');
             $table->foreignId('period_id');
             $table->foreignId('classroom_id');
-            $table->foreignId('classroom_period_id');
             $table->foreignId('student_id');
             $table->string('status'); // registered promoted, repeat, graduated;
             $table->timestamps();
