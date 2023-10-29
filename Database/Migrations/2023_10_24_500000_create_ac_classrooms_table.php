@@ -13,14 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ac_class_room_periods', function (Blueprint $table) {
+        Schema::create('ac_classrooms', function (Blueprint $table) {
             $table->id();
             $table->foreignId('team_id');
             $table->foreignId('user_id');
-            $table->foreignId('period_id');
-            $table->foreignId('classroom_id');
-            $table->foreignId('teacher_id');
-            $table->json('fee_schema');
+            $table->string('name');
+            $table->integer('number');
+            $table->decimal('fee', 14, 4);
+            $table->integer('capacity');
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
     }
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ic_class_room_periods');
+        Schema::dropIfExists('ac_classrooms');
     }
 };

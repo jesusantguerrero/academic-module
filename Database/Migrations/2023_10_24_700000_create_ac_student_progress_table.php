@@ -13,14 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ac_classrooms', function (Blueprint $table) {
+        Schema::create('ac_admissions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('team_id');
             $table->foreignId('user_id');
-            $table->string('name');
-            $table->integer('number');
-            $table->decimal('fee', 14, 4);
-            $table->integer('capacity');
+            $table->foreignId('period_id');
+            $table->foreignId('classroom_id');
+            $table->foreignId('classroom_period_id');
+            $table->foreignId('student_id');
+            $table->string('status'); // registered promoted, repeat, graduated;
             $table->timestamps();
         });
     }
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ac_classrooms');
+        Schema::dropIfExists('ic_admissions');
     }
 };
