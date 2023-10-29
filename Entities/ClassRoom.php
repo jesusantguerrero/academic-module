@@ -13,5 +13,21 @@ class ClassRoom extends Model
       "fee",
       "capacity"
     ];
-    protected $table = "ac_class_rooms";
+    protected $table = "ac_classrooms";
+
+    public function admissions() {
+      return $this->hasMany(Admission::class)->completed();
+    }
+
+    public function admissionsArchived() {
+      return $this->hasMany(Admission::class)->archived();
+    }
+
+    public function pastAdmissionsInProgress() {
+      return $this->hasMany(Admission::class)->inProgress();
+    }
+
+    public function pastAdmissionsInDraft() {
+      return $this->hasMany(Admission::class)->draft();
+    }
 }

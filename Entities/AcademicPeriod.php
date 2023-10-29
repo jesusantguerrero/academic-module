@@ -14,4 +14,8 @@ class AcademicPeriod extends Model
       'is_active'
     ];
     protected $table = "ac_academic_periods";
+
+    public function classes() {
+      return $this->hasMany(ClassRoom::class);
+    }
 }
