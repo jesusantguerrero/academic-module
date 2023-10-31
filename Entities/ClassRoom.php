@@ -9,7 +9,11 @@ class ClassRoom extends Model
     protected $fillable = [
       "team_id",
       "user_id",
+      "grade_id",
+      "period_id",
       "name",
+      "number",
+      "code",
       "fee",
       "capacity"
     ];

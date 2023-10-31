@@ -11,11 +11,12 @@ class AcademicPeriod extends Model
       'user_id',
       'name',
       'start_date',
+      'end_date',
       'is_active'
     ];
     protected $table = "ac_academic_periods";
 
-    public function classes() {
-      return $this->hasMany(ClassRoom::class);
+    public function classrooms() {
+      return $this->hasMany(ClassRoom::class, 'period_id');
     }
 }

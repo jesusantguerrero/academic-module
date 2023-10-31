@@ -12,4 +12,12 @@ class Grade extends Model
     protected $guarded = [];
 
     protected $table = "ac_grades";
+
+    public function classrooms() {
+      return $this->hasMany(ClassRoom::class);
+    }
+
+    public function level() {
+      return $this->belongsTo(Level::class);
+    }
 }

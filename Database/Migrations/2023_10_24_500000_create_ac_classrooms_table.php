@@ -17,8 +17,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('team_id');
             $table->foreignId('user_id');
+            $table->foreignId('grade_id');
+            $table->foreignId('period_id');
             $table->string('name');
-            $table->integer('number');
+            $table->string('code');
+            $table->float('number');
             $table->decimal('fee', 14, 4);
             $table->integer('capacity');
             $table->boolean('is_active')->default(1);
