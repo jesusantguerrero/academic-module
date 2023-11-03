@@ -19,6 +19,14 @@ class ClassRoom extends Model
     ];
     protected $table = "ac_classrooms";
 
+    public function grade() {
+      return $this->belongsTo(Grade::class);
+    }
+
+    public function level() {
+      return $this->belongsTo(Level::class);
+    }
+
     public function admissions() {
       return $this->hasMany(Admission::class)->completed();
     }

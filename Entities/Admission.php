@@ -17,6 +17,9 @@ class Admission extends Transactionable implements IPayableDocument {
     const ACTION_PROMOTE = 'promoted';
     const ACTION_REPEAT = 'repeat';
 
+    const TYPE_ENROLLMENT = 'enrollment';
+    const TYPE_RE_ENROLLMENT = 're-enrollment';
+
     const INVOICE_TYPE_ENROLLMENT = 'enrollment';
     const INVOICE_TYPE_MONTH = 'month';
 
@@ -25,6 +28,7 @@ class Admission extends Transactionable implements IPayableDocument {
     const STATUS_IN_PROGRESS = 'in_progress';
     const STATUS_COMPLETED = 'completed';
     const STATUS_CANCELLED = 'cancelled';
+    const STATUS_RE_ENROLLED = 're-enrolled';
 
     const PAYMENT_STATUS_ACTIVE = 'active';
     const PAYMENT_STATUS_GRACE = 'grace';
@@ -44,6 +48,8 @@ class Admission extends Transactionable implements IPayableDocument {
       'user_id',
       'team_id',
       'classroom_id',
+      'grade_id',
+      'level_id',
       'period_id',
       'client_id',
       'student_id',
@@ -64,13 +70,22 @@ class Admission extends Transactionable implements IPayableDocument {
       static::creating(function ($admission) {
         $admission->next_invoice_date = $admission->next_invoice_date ?? $admission->first_invoice_date;
         $admission->client_id = $admission->student_id;
-        // client->fullName;
-        // $admission->student_name = $admission->client->fullName;
+      });
+
+      static::saving(function ($admission) {
+        $admission->client_id = $admission->student_id;
+        $admission->level_id = $admission->classroom->level_id;
+        $admission->grade_id = $admission->classroom->grade_id;
+        $admission->grade_name = "{$admission->classroom->grade->full_name}";
       });
     }
 
     public function student() {
       return $this->belongsTo(Client::class, 'student_id');
+    }
+
+    public function classroom() {
+      return $this->belongsTo(ClassRoom::class, 'classroom_id');
     }
 
     public function client() {

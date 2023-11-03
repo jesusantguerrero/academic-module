@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Schema;
+use Modules\Academic\Entities\Admission;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -19,13 +20,15 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->foreignId('period_id');
             $table->foreignId('classroom_id');
-            $table->foreignId('classroom_period_id');
+            $table->foreignId('level_id')->nullable();
+            $table->foreignId('grade_id')->nullable();
             $table->foreignId('student_id');
             $table->foreignId('client_id');
-            $table->foreignId('tutor_id');
+            $table->string('type')->default(Admission::TYPE_ENROLLMENT); // draft, in progress, completed, archived
             $table->string('status'); // draft, in progress, completed, archived
 
             // enrolled data
+            $table->string('full_name')->nullable();
             $table->date('date');
             $table->date('end_date')->nullable();
             $table->date('first_invoice_date');

@@ -20,4 +20,12 @@ class Grade extends Model
     public function level() {
       return $this->belongsTo(Level::class);
     }
+
+    protected static function boot() {
+      parent::boot();
+
+      static::saving(function ($grade) {
+        $grade->full_name = "{$grade->name} {$grade->level->name} {}";
+      });
+    }
 }

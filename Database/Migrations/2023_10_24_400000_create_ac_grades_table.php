@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('level_id');
             $table->string('name');
             $table->string('label');
+            $table->string('full_name')->nullable();
             $table->integer('order');
             $table->text('description')->nullable();
             $table->boolean('is_active')->default(1);
