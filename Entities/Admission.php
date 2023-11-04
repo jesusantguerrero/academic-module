@@ -8,9 +8,12 @@ use Insane\Journal\Traits\Transactionable;
 use Insane\Journal\Models\Core\Transaction;
 use Insane\Journal\Traits\IPayableDocument;
 use Insane\Journal\Traits\HasPaymentDocuments;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Academic\Database\factories\AdmissionFactory;
 
 class Admission extends Transactionable implements IPayableDocument {
     use HasPaymentDocuments;
+    use HasFactory;
 
     const ACTION_ENROLL = 'enroll';
     const ACTION_RE_ENROLL = 're_enroll';
@@ -84,6 +87,9 @@ class Admission extends Transactionable implements IPayableDocument {
       return $this->belongsTo(Client::class, 'student_id');
     }
 
+    public function grade() {
+      return $this->belongsTo(Grade::class, 'grade_id');
+    }
     public function classroom() {
       return $this->belongsTo(ClassRoom::class, 'classroom_id');
     }
@@ -187,5 +193,10 @@ class Admission extends Transactionable implements IPayableDocument {
         self::PAYMENT_STATUS_PARTIALLY_PAID,
         self::PAYMENT_STATUS_PAID,
       ]);
+    }
+
+    protected static function newFactory()
+    {
+        return AdmissionFactory::new();
     }
 }

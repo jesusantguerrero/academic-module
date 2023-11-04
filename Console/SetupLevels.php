@@ -84,12 +84,8 @@ class SetupLevels extends Command
       }
     }
 
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
+
+    protected function getArguments(): array
     {
         return [
             ['teamId', InputArgument::REQUIRED, '2'],

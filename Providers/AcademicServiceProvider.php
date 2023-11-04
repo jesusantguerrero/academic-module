@@ -4,6 +4,7 @@ namespace Modules\Academic\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Modules\Academic\Console\SetupLevels;
+use Modules\Academic\Console\SetupPeriod;
 
 class AcademicServiceProvider extends ServiceProvider
 {
@@ -29,7 +30,8 @@ class AcademicServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
         $this->commands([
-          SetupLevels::class
+          SetupLevels::class,
+          SetupPeriod::class
       ]);
     }
 
