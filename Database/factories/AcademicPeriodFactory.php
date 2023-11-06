@@ -26,7 +26,7 @@ class AcademicPeriodFactory extends Factory
       $endDate = Carbon::parse($startDate)->addMonths(3);
 
         return [
-          'name' => Carbon::parse($endDate)->format('Y-m') . "-" . $endDate->format('Y-m'),
+          'name' => Carbon::parse($startDate)->format('Y-m') . "-" . $endDate->format('Y-m'),
           'start_date' => $startDate->format('Y-m-d'),
           'end_date' => $endDate->format('Y-m-d'),
           'is_active' => false
