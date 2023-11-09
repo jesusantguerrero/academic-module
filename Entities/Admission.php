@@ -83,15 +83,23 @@ class Admission extends Transactionable implements IPayableDocument {
       });
     }
 
-    public function student() {
-      return $this->belongsTo(Client::class, 'student_id');
+    public function period() {
+      return $this->belongsTo(AcademicPeriod::class, 'period_id');
     }
-
     public function grade() {
       return $this->belongsTo(Grade::class, 'grade_id');
     }
     public function classroom() {
       return $this->belongsTo(ClassRoom::class, 'classroom_id');
+    }
+
+    public function student() {
+      return $this->belongsTo(Client::class, 'student_id');
+    }
+
+
+    public function progress() {
+      return $this->hasOne(StudentProgress::class);
     }
 
     public function client() {

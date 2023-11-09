@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->foreignId('period_id');
             $table->foreignId('classroom_id');
+            $table->foreignId('admission_id');
             $table->foreignId('student_id');
             $table->string('status'); // registered promoted, repeat, graduated;
             $table->timestamps();

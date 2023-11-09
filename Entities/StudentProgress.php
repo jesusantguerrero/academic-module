@@ -11,6 +11,8 @@ class StudentProgress extends Model
       "team_id",
       "user_id",
       "student_id",
+      "classroom_id",
+      "admission_id",
       "period_id",
       "status"
     ];
