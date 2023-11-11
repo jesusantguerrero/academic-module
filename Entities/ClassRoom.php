@@ -18,9 +18,14 @@ class ClassRoom extends Model
       "capacity"
     ];
     protected $table = "ac_classrooms";
+    protected $appends = ['studentCount'];
 
     public function grade() {
       return $this->belongsTo(Grade::class);
+    }
+
+    public function period() {
+      return $this->belongsTo(AcademicPeriod::class, 'period_id');
     }
 
     public function level() {
@@ -35,11 +40,18 @@ class ClassRoom extends Model
       return $this->hasMany(Admission::class)->archived();
     }
 
+    public function activeStudents() {
+      return $this->hasMany(Admission::class, 'classroom_id')->active();
+    }
     public function pastAdmissionsInProgress() {
-      return $this->hasMany(Admission::class)->inProgress();
+      return $this->hasMany(Admission::class)->active();
     }
 
     public function pastAdmissionsInDraft() {
       return $this->hasMany(Admission::class)->draft();
+    }
+
+    protected function getStudentCountAttribute() {
+      return $this->activeStudents()->count();
     }
 }
