@@ -12,6 +12,9 @@ class AcademicPeriod extends Model
 {
     use HasFactory;
 
+    const STATUS_ACTIVE = 'active';
+    const STATUS_INACTIVE = 'inactive';
+
     protected $fillable = [
       'team_id',
       'user_id',

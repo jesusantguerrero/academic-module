@@ -97,6 +97,9 @@ class Admission extends Transactionable implements IPayableDocument {
       return $this->belongsTo(Client::class, 'student_id');
     }
 
+    public function parents() {
+      return $this->hasManyThrough(Client::class, ContactRelation::class, 'contact_id', 'related_contact_id');
+    }
 
     public function progress() {
       return $this->hasOne(StudentProgress::class);
