@@ -28,7 +28,8 @@ return new class extends Migration
             $table->string('status'); // draft, in progress, completed, archived
 
             // enrolled data
-            $table->string('full_name')->nullable();
+            $table->string('student_name')->nullable();
+            $table->text('parents_names')->nullable();
             $table->date('date');
             $table->date('end_date')->nullable();
             $table->date('first_invoice_date');

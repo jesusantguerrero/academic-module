@@ -4,6 +4,7 @@ namespace Modules\Academic\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Modules\Academic\Console\SetupFees;
+use Modules\Academic\Console\SeedStudent;
 use Modules\Academic\Console\SetupLevels;
 use Modules\Academic\Console\SetupPeriod;
 
@@ -33,7 +34,8 @@ class AcademicServiceProvider extends ServiceProvider
         $this->commands([
           SetupLevels::class,
           SetupPeriod::class,
-          SetupFees::class
+          SetupFees::class,
+          SeedStudent::class
       ]);
     }
 

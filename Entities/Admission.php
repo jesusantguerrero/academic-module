@@ -5,6 +5,7 @@ namespace Modules\Academic\Entities;
 use App\Domains\CRM\Models\Client;
 use Insane\Journal\Models\Invoice\Invoice;
 use Insane\Journal\Traits\Transactionable;
+use App\Domains\CRM\Models\ContactRelation;
 use Insane\Journal\Models\Core\Transaction;
 use Insane\Journal\Traits\IPayableDocument;
 use Insane\Journal\Traits\HasPaymentDocuments;
@@ -60,6 +61,12 @@ class Admission extends Transactionable implements IPayableDocument {
       'status',
       'generated_invoice_dates',
       'fee',
+      'student_name',
+      'parents_names',
+      'end_date',
+      'notes',
+      'late_fee',
+      'grace_days',
     ];
 
     protected $casts = [
@@ -76,10 +83,14 @@ class Admission extends Transactionable implements IPayableDocument {
       });
 
       static::saving(function ($admission) {
+        $parents = $admission->student->parents->pluck('display_name')->all() ?? [];
+
         $admission->client_id = $admission->student_id;
         $admission->level_id = $admission->classroom->level_id;
         $admission->grade_id = $admission->classroom->grade_id;
         $admission->grade_name = "{$admission->classroom->grade->full_name}";
+        $admission->student_name = $admission->student->display_name;
+        $admission->parents_names = implode(",", $parents);
       });
     }
 
@@ -98,7 +109,7 @@ class Admission extends Transactionable implements IPayableDocument {
     }
 
     public function parents() {
-      return $this->hasManyThrough(Client::class, ContactRelation::class, 'contact_id', 'related_contact_id');
+      return $this->hasManyThrough(Client::class, ContactRelation::class, 'related_contact_id', 'id', 's');
     }
 
     public function progress() {
@@ -110,7 +121,8 @@ class Admission extends Transactionable implements IPayableDocument {
     }
 
     public function invoices() {
-      return $this->morphMany(Invoice::class, 'invoiceable')->orderBy('due_date', 'desc');
+      return $this->morphMany(Invoice::class, 'invoiceable')
+      ->orderBy('due_date', 'desc');
     }
 
     public function invoiceNotes() {
