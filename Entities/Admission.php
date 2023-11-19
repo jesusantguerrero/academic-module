@@ -104,6 +104,10 @@ class Admission extends Transactionable implements IPayableDocument {
       return $this->belongsTo(ClassRoom::class, 'classroom_id');
     }
 
+    public function schedule() {
+      return $this->morphTo(ResourceSchedule::class, 'scheduleable');
+    }
+
     public function student() {
       return $this->belongsTo(Client::class, 'student_id');
     }
