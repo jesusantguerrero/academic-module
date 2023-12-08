@@ -31,10 +31,11 @@ class AdmissionFactory extends Factory
           'grade_id' => function (array $attributes) {
             return Grade::where([
               "team_id" => $attributes['team_id'],
-            ])->first()->id;
+            ])->get()->pluck('id')->random();
           },
           'level_id' => null,
           'period_id' => null,
+          'gender' => 'M',
           'client_id' => null,
           'student_id' => null,
           'next_invoice_date' => null,

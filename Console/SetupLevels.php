@@ -2,8 +2,10 @@
 
 namespace Modules\Academic\Console;
 
+use App\Models\Team;
 use Illuminate\Console\Command;
 use Modules\Academic\Entities\Level;
+use Modules\Academic\Actions\SetLevelsAndGrades;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
@@ -28,7 +30,7 @@ class SetupLevels extends Command
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(private SetLevelsAndGrades $setLevelsAndGrades)
     {
         parent::__construct();
     }
@@ -40,48 +42,9 @@ class SetupLevels extends Command
      */
     public function handle()
     {
-      $teamId = $this->argument('teamId');
+      $team = Team::find($this->argument('teamId'));
       $levels = config('academic.levels');
-      $storedCycles = [];
-
-      foreach ($levels as $order => $level) {
-        $levelSaved = Level::create([
-          "team_id" => $teamId,
-          "user_id" => 0,
-          "order" => $order,
-          "name" => $level["name"],
-          "label" => $level["label"] ?? ucfirst($level["name"]),
-          "is_active" => $level["is_active"]
-        ]);
-
-        if (isset($level["cycles"])) {
-          foreach ($level["cycles"] as $cycle) {
-            $cycleSaved = $levelSaved->cycles()->create([
-              "team_id" => $teamId,
-              "user_id" => 0,
-              "order" => $order,
-              "name" => $cycle,
-              "label" => ucfirst($cycle),
-            ]);
-
-            $storedCycles[$cycleSaved->name] = $cycleSaved->id;
-          }
-        }
-
-        if (isset($level["grades"])) {
-          foreach ($level["grades"] as $grade) {
-            $levelSaved->grades()->create([
-              "team_id" => $teamId,
-              "user_id" => 0,
-              "cycle_id" => $storedCycles[$grade["cycle"]],
-              "order" => $grade["order"] ?? $order,
-              "name" => $grade["name"],
-              "label" => $grade["label"] ?? ucfirst($grade["name"]),
-            ]);
-          }
-        }
-
-      }
+      $this->setLevelsAndGrades->handle($team, $levels);
     }
 
 

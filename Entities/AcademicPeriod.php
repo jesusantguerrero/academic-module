@@ -19,11 +19,12 @@ class AcademicPeriod extends Model
       'team_id',
       'user_id',
       'name',
+      'shortname',
+      'description',
       'start_date',
       'end_date',
-      'is_active'
     ];
-    protected $table = "ac_academic_periods";
+    protected $table = "ac_periods";
 
     protected $appends = ['days', 'studentCount'];
 

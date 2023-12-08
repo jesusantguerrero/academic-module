@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('team_id');
             $table->foreignId('user_id');
             $table->string('name');
+            $table->string('shortname')->nullable();
+            $table->text('description')->nullable();
             $table->date('start_date');
             $table->date('end_date');
             $table->boolean('is_active')->default(false);

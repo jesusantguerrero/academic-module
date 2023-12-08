@@ -2,6 +2,7 @@
 
 namespace Modules\Academic\Entities;
 
+use App\Models\ResourceSchedule;
 use App\Domains\CRM\Models\Client;
 use Insane\Journal\Models\Invoice\Invoice;
 use Insane\Journal\Traits\Transactionable;
@@ -60,10 +61,10 @@ class Admission extends Transactionable implements IPayableDocument {
       'next_invoice_date',
       'status',
       'generated_invoice_dates',
-      'fee',
       'student_name',
       'parents_names',
       'end_date',
+      'fee',
       'notes',
       'late_fee',
       'grace_days',
@@ -105,7 +106,7 @@ class Admission extends Transactionable implements IPayableDocument {
     }
 
     public function schedule() {
-      return $this->morphTo(ResourceSchedule::class, 'scheduleable');
+      return $this->morphMany(ResourceSchedule::class, 'scheduleable');
     }
 
     public function student() {

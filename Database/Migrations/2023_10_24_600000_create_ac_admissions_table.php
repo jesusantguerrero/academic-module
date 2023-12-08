@@ -29,6 +29,7 @@ return new class extends Migration
 
             // enrolled data
             $table->string('student_name')->nullable();
+            $table->string('grade_name')->nullable();
             $table->text('parents_names')->nullable();
             $table->date('date');
             $table->date('end_date')->nullable();
@@ -41,6 +42,7 @@ return new class extends Migration
             $table->foreignId('late_fee_account_id')->nullable();
 
             // invoicing data
+            $table->decimal('fee', 14, 4)->default(0.00);
             $table->decimal('amount', 14, 4)->default(0.00);
             $table->decimal('amount_paid', 14, 4)->default(0.00);
             $table->decimal('amount_due', 14, 4)->default(0.00);

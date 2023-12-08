@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('label');
             $table->string('full_name')->nullable();
             $table->integer('order');
+            $table->decimal('fee', 14, 4)->default(0);
             $table->text('description')->nullable();
             $table->boolean('is_active')->default(1);
             $table->timestamps();

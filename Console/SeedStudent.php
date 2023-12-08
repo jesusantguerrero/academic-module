@@ -7,10 +7,10 @@ use Illuminate\Console\Command;
 use App\Domains\CRM\Models\Client;
 use Modules\Academic\Entities\Admission;
 use App\Domains\Academic\Data\AdmissionData;
-use App\Domains\Academic\Services\PeriodService;
 use Symfony\Component\Console\Input\InputOption;
 use App\Domains\Academic\Services\StudentService;
 use Symfony\Component\Console\Input\InputArgument;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 
 class SeedStudent extends Command
 {
@@ -24,7 +24,12 @@ class SeedStudent extends Command
       $user = User::where(["current_team_id" => $teamId])->first();
 
 
-      $admissions = Admission::factory()->count(10)->make([
+      $admissions = Admission::factory()->count(10)
+      ->state(new Sequence(
+        ['gender' => 'M'],
+        ['gender' => 'F'],
+      ))
+      ->make([
         "team_id" => $teamId,
         "user_id" => $user->id,
         "period_id" => $user->currentTeam->current_period_id,
@@ -33,16 +38,20 @@ class SeedStudent extends Command
       foreach ($admissions as $admission) {
          $studentService->create(
             AdmissionData::from([...$admission->toArray(),
-            "parents" => Client::factory()->count(2)->make()->toArray(),
-            "fee" => 0,
-            "first_invoice_date" =>  date('Y-m-d'),
-            "grace_days" => 1,
-            "late_fee" => 100,
-            "rrule" => [
-              "frequency" => "DAILY",
-              "interval" => 1
-            ]
-          ]),
+              "parents" => Client::factory()->count(2)
+              ->state(new Sequence(
+                ['gender' => 'M'],
+                ['gender' => 'F'],
+              ))->make()->toArray(),
+              "fee" => null,
+              "first_invoice_date" =>  date('Y-m-d'),
+              "grace_days" => 1,
+              "late_fee" => 100,
+              "rrule" => [
+                "frequency" => "DAILY",
+                "interval" => 1
+              ]
+            ]),
             $user
           );
       }
