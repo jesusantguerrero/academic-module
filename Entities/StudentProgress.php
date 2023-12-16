@@ -14,6 +14,7 @@ class StudentProgress extends Model
       "classroom_id",
       "admission_id",
       "period_id",
+      "next_grade_id",
       "status"
     ];
     protected $table = "ac_student_progress";

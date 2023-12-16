@@ -15,11 +15,12 @@ class SetLevelsAndGrades
         $levelSaved = Level::create([
           "team_id" => $team->id,
           "user_id" => $team->user_id,
-          "order" => $order,
+          "order" => $order + 1,
           "name" => $level["name"],
           "label" => $level["label"] ?? ucfirst($level["name"]),
           "is_active" => $level["is_active"]
         ]);
+
 
         if (isset($level["cycles"])) {
           foreach ($level["cycles"] as $cycle) {

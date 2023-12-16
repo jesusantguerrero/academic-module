@@ -28,9 +28,15 @@ class AcademicPeriod extends Model
 
     protected $appends = ['days', 'studentCount'];
 
+    protected $casts = [
+      'start_date' => 'date',
+      'end_date' => 'date'
+    ];
+
     public function classrooms() {
       return $this->hasMany(ClassRoom::class, 'period_id');
     }
+
     public function students() {
       return $this->hasMany(Admission::class, 'period_id')->active();
     }
@@ -45,6 +51,10 @@ class AcademicPeriod extends Model
         get: fn($value, $attributes) => InvoiceHelper::getCarbonDate($attributes['start_date'])
         ->diffInDays(InvoiceHelper::getCarbonDate($attributes['end_date']))
       );
+    }
+
+    public function hasPassed() {
+      return $this->end_date->gt(now());
     }
 
     protected function getStudentCountAttribute() {
