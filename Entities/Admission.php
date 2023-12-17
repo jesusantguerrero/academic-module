@@ -58,15 +58,18 @@ class Admission extends Transactionable implements IPayableDocument {
       'period_id',
       'client_id',
       'student_id',
+      'date',
       'next_invoice_date',
       'status',
       'generated_invoice_dates',
+      'first_invoice_date',
       'student_name',
       'parents_names',
       'end_date',
       'fee',
       'notes',
       'late_fee',
+      'late_fee_type',
       'grace_days',
     ];
 
