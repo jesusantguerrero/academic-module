@@ -4,7 +4,6 @@ namespace Modules\Academic\Console;
 
 use App\Models\Team;
 use Illuminate\Console\Command;
-use Modules\Academic\Entities\Level;
 use App\Domains\Academic\Services\FeeService;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;

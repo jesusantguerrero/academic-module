@@ -5,7 +5,7 @@ namespace Modules\Academic\Listeners;
 use Laravel\Jetstream\Events\TeamCreated;
 use Modules\Academic\Actions\SetLevelsAndGrades;
 
-class CreateSchoolStructure
+class CreateFeeStructure
 {
     /**
      * Create the event listener.
