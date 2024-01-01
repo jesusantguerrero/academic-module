@@ -48,6 +48,17 @@ class AcademicPeriod extends Model
       );
     }
 
+    protected function startDate(): Attribute {
+      return new Attribute(
+        get: fn($value, $attributes) => InvoiceHelper::getCarbonDate($attributes['start_date'])
+      );
+    }
+    protected function endDate(): Attribute {
+      return new Attribute(
+        get: fn($value, $attributes) => InvoiceHelper::getCarbonDate($attributes['end_date'])
+      );
+    }
+
     public function hasPassed() {
       return InvoiceHelper::getCarbonDate($this->end_date)->gt(now());
     }
