@@ -2,6 +2,7 @@
 
 namespace Modules\Academic\Entities;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -50,5 +51,15 @@ class Grade extends Model
 
     protected function getStudentCountAttribute() {
       return $this->students()->count();
+    }
+
+    public static function getByTeam($teamId) {
+      return self::where([
+        "ac_grades.team_id" => $teamId,
+      ])
+      ->selectRaw('ac_grades.*')
+      ->join('ac_levels', 'ac_levels.id', 'ac_grades.level_id')
+      ->orderBy(DB::raw('concat(ac_levels.order, ".", ac_grades.order)'))
+      ->get();
     }
 }

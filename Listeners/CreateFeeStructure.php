@@ -23,7 +23,7 @@ class CreateFeeStructure
     public function handle(TeamCreated $event)
     {
         $team = $event->team;
-        $this->setLevelsAndGrades($team);
+        // $this->setLevelsAndGrades($team);
     }
 
       /**
@@ -33,12 +33,6 @@ class CreateFeeStructure
      */
     protected function setLevelsAndGrades($team)
     {
-        $levels = config('academic.levels');
-        $team->update([
-          'app_profile_name' => 'school',
-          'approved_at' => now(),
-        ]);
-        $this->setLevelsAndGrades->handle($team, $levels);
-        $this->setLevelsAndGrades->addContactTypes($team);
+
     }
 }

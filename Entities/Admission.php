@@ -64,6 +64,8 @@ class Admission extends Transactionable implements IPayableDocument {
       'generated_invoice_dates',
       'first_invoice_date',
       'student_name',
+      'names',
+      'lastnames',
       'parents_names',
       'end_date',
       'fee',
@@ -94,6 +96,8 @@ class Admission extends Transactionable implements IPayableDocument {
         $admission->grade_id = $admission->classroom->grade_id;
         $admission->grade_name = "{$admission->classroom->grade->full_name}";
         $admission->student_name = $admission->student->display_name;
+        $admission->names = $admission->student->names;
+        $admission->lastnames = $admission->student->lastnames;
         $admission->parents_names = implode(",", $parents);
       });
     }

@@ -29,6 +29,8 @@ return new class extends Migration
 
             // enrolled data
             $table->string('student_name')->nullable();
+            $table->string('names')->nullable();
+            $table->string('lastnames')->nullable();
             $table->string('grade_name')->nullable();
             $table->text('parents_names')->nullable();
             $table->date('date');

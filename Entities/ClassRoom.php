@@ -25,8 +25,9 @@ class ClassRoom extends Model
 
       static::saving(function($classroom) {
         $defaultName = "{$classroom->period->name} {$classroom->grade->level->name} {$classroom->grade->name}";
+        $gradeName = $classroom->grade->label ?? $classroom->grade->name;
         $classroom->full_name = $defaultName;
-        $classroom->name = $classroom->name ?? "{$classroom->grade->label} {$classroom->grade->level->name}";
+        $classroom->name = $classroom->name ?? "{$gradeName} {$classroom->grade->level->name}";
         $classroom->number = $classroom->number ?? "{$classroom->grade->level->order}.{$classroom->grade->order}";
         $classroom->code = $classroom->code ?? "{$classroom->period->name}_{$classroom->grade->level->name}-{$classroom->grade->name}";
       });

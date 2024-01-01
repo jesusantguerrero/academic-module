@@ -28,11 +28,6 @@ class AcademicPeriod extends Model
 
     protected $appends = ['days', 'studentCount'];
 
-    protected $casts = [
-      'start_date' => 'date',
-      'end_date' => 'date'
-    ];
-
     public function classrooms() {
       return $this->hasMany(ClassRoom::class, 'period_id');
     }
@@ -54,7 +49,7 @@ class AcademicPeriod extends Model
     }
 
     public function hasPassed() {
-      return $this->end_date->gt(now());
+      return InvoiceHelper::getCarbonDate($this->end_date)->gt(now());
     }
 
     protected function getStudentCountAttribute() {
