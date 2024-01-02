@@ -70,6 +70,8 @@ class Admission extends Transactionable implements IPayableDocument {
       'end_date',
       'fee',
       'notes',
+      'deposit',
+      'require_deposit',
       'late_fee',
       'late_fee_type',
       'grace_days',
