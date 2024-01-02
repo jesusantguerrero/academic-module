@@ -51,7 +51,7 @@ return new class extends Migration
             $table->decimal('total', 14, 4)->default(0.00);
 
             // Penalty config
-            $table->decimal('deposit', 14, 4)->default(0.00);
+            $table->decimal('deposit', 14, 4)->default(0.00)->nullable();
             $table->boolean('require_deposit')->default(true);
             $table->decimal('late_fee', 14, 4)->default(0.00);
             $table->enum('late_fee_type', ['PERCENTAGE', 'PERCENTAGE_OUTSTANDING', 'FIXED'])->default('PERCENTAGE');
