@@ -4,7 +4,7 @@ namespace Modules\Academic\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ClassRoom extends Model
+class Classroom extends Model
 {
     protected $fillable = [
       "team_id",

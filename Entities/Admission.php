@@ -48,7 +48,6 @@ class Admission extends Transactionable implements IPayableDocument {
     protected $creditAccount = 'Customer Demand Deposits';
     protected $debitAccount = 'sales';
 
-
     protected $fillable = [
       'user_id',
       'team_id',
@@ -111,7 +110,7 @@ class Admission extends Transactionable implements IPayableDocument {
       return $this->belongsTo(Grade::class, 'grade_id');
     }
     public function classroom() {
-      return $this->belongsTo(ClassRoom::class, 'classroom_id');
+      return $this->belongsTo(Classroom::class, 'classroom_id');
     }
 
     public function schedule() {
@@ -136,7 +135,7 @@ class Admission extends Transactionable implements IPayableDocument {
 
     public function invoices() {
       return $this->morphMany(Invoice::class, 'invoiceable')
-      ->orderBy('due_date', 'desc');
+      ->orderBy('due_date');
     }
 
     public function invoiceNotes() {
