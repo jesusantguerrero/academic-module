@@ -26,7 +26,7 @@ class Grade extends Model
     protected $appends = ['studentCount'];
 
     public function classrooms() {
-      return $this->hasMany(ClassRoom::class);
+      return $this->hasMany(Classroom::class);
     }
 
     public function cycle() {

@@ -29,7 +29,7 @@ class AcademicPeriod extends Model
     protected $appends = ['days', 'studentCount'];
 
     public function classrooms() {
-      return $this->hasMany(ClassRoom::class, 'period_id');
+      return $this->hasMany(Classroom::class, 'period_id');
     }
 
     public function students() {
