@@ -35,8 +35,7 @@ class CreateSchoolStructure
     {
         $levels = config('academic.levels');
         $team->update([
-          'app_profile_name' => 'school',
-          'approved_at' => now(),
+          'app_profile_name' => 'school'
         ]);
         $this->setLevelsAndGrades->handle($team, $levels);
         $this->setLevelsAndGrades->addContactTypes($team);
