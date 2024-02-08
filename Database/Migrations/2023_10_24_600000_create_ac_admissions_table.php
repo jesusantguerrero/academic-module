@@ -52,14 +52,14 @@ return new class extends Migration
 
             // Penalty config
             $table->decimal('deposit', 14, 4)->default(0.00)->nullable();
-            $table->boolean('require_deposit')->default(true);
+            $table->boolean('require_deposit')->nullable()->default(true);
             $table->decimal('late_fee', 14, 4)->default(0.00);
             $table->enum('late_fee_type', ['PERCENTAGE', 'PERCENTAGE_OUTSTANDING', 'FIXED'])->default('PERCENTAGE');
             $table->integer('grace_days')->default(0);
 
             // config
-            $table->json('generated_invoice_dates')->default('[]');
-            $table->json('additional_fees')->default('[]');
+            $table->json('generated_invoice_dates')->nullable();
+            $table->json('additional_fees')->nullable();
 
             $table->text('notes')->nullable();
             $table->date('cancelled_at')->nullable();

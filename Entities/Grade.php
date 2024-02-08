@@ -45,7 +45,7 @@ class Grade extends Model
       parent::boot();
 
       static::saving(function ($grade) {
-        $grade->full_name = $grade?->full_name ?? "{$grade->name} {$grade->level->name}";
+        $grade->full_name = $grade?->full_name ?? "{$grade->name} {$grade->level?->name}";
       });
     }
 

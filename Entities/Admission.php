@@ -2,6 +2,7 @@
 
 namespace Modules\Academic\Entities;
 
+use App\Models\User;
 use App\Models\ResourceSchedule;
 use App\Domains\CRM\Models\Client;
 use Insane\Journal\Models\Invoice\Invoice;
@@ -103,9 +104,15 @@ class Admission extends Transactionable implements IPayableDocument {
       });
     }
 
+
+    public function user() {
+      return $this->belongsTo(User::class);
+    }
+
     public function period() {
       return $this->belongsTo(AcademicPeriod::class, 'period_id');
     }
+
     public function grade() {
       return $this->belongsTo(Grade::class, 'grade_id');
     }
